@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Tournament Platform</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tournaments">Tournaments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#liveStats">Live Stats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item login-btn">
+                        <a class="nav-link btn btn-outline-light login-btn" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="bi bi-person-fill"></i> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="jumbotron text-center bg-primary text-white py-5">
+        <div class="container">
+            <h1>Welcome to the Tournament Platform</h1>
+            <p>Find and participate in exciting tournaments!</p>
+            <a href="#tournaments" class="btn btn-light btn-lg">Explore Tournaments</a>
+        </div>
+    </section>
+
+    <!-- Live Stats Section -->
+    <section id="liveStats" class="container my-5">
+        <h2 class="text-center mb-4"><i class="bi bi-graph-up"></i> Live Statistics</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-trophy-fill fs-1"></i>
+                        <h5 class="card-title">Active Tournaments</h5>
+                        <p id="activeTournaments" class="card-text fs-2">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-people-fill fs-1"></i>
+                        <h5 class="card-title">Registered Teams</h5>
+                        <p id="registeredTeams" class="card-text fs-2">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-cash-stack fs-1"></i>
+                        <h5 class="card-title">Total Prize Money</h5>
+                        <p id="totalPrizeMoney" class="card-text fs-2">$0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-controller fs-1"></i>
+                        <h5 class="card-title">Upcoming Matches</h5>
+                        <p id="upcomingMatches" class="card-text fs-2">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournaments Section -->
+    <section id="tournaments" class="container my-5">
+        <h2 class="text-center mb-4"><i class="bi bi-trophy"></i> Upcoming Tournaments</h2>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="form-group">
+                        <input type="text" id="tournamentSearch" class="form-control" placeholder="Search tournaments...">
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-light active" data-filter="all">All</button>
+                        <button type="button" class="btn btn-outline-light" data-filter="available">Available</button>
+                        <button type="button" class="btn btn-outline-light" data-filter="full">Full</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tournamentList" class="row">
+            <!-- Tournament cards will be loaded here via AJAX -->
+            <div class="col-12 text-center">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button id="loadMoreBtn" class="btn btn-outline-primary">Load More</button>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="container my-5">
+        <h2 class="text-center mb-4"><i class="bi bi-chat-quote"></i> User Reviews</h2>
+        <div class="row mb-4">
+            <div class="col-md-8 mx-auto">
+                <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Reviews will be loaded here via AJAX -->
+                        <div class="carousel-item active">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Loading reviews...</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="bi bi-pencil-square"></i> Submit Your Review</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="reviewForm">
+                            <div class="mb-3">
+                                <label for="reviewName" class="form-font">Your Name</label>
+                                <input type="text" class="form-control" id="reviewName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="reviewRating" class="form-font">Rating</label>
+                                <select class="form-select" id="reviewRating" required>
+                                    <option value="">Select Rating</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="4">4 - Very Good</option>
+                                    <option value="3">3 - Good</option>
+                                    <option value="2">2 - Fair</option>
+                                    <option value="1">1 - Poor</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="reviewComment" class="form-font">Your Comment</label>
+                                <textarea class="form-control" id="reviewComment" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container my-5">
+        <h2 class="text-center mb-4"><i class="bi bi-envelope"></i> Contact Us</h2>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Tournament Platform</p>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="notificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bi bi-info-circle me-2"></i>
+                <strong class="me-auto" id="toastTitle">Notification</strong>
+                <small id="toastTime">Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">
+                This is a notification message.
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbox Button -->
+    <div class="chat-box" style="display: none;">
+        <button id="needHelpBtn" class="chat-btn btn btn-primary rounded-circle shadow" data-bs-toggle="modal" data-bs-target="#chatModal">
+            <i class="bi bi-chat-dots-fill"></i>
+        </button>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chatModal" class="modal fade" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="chatModalLabel"><i class="bi bi-headset"></i> Live Support</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="chatMessages" class="chat-messages"></div>
+                </div>
+                <div class="modal-footer">
+                    <div class="input-group">
+                        <input type="text" id="chatInput" class="form-control" placeholder="Type your message..." />
+                        <button id="sendMessageBtn" class="btn btn-primary">
+                            <i class="bi bi-send-fill"></i> Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-person-circle"></i> Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" id="loginError" style="display: none;"></div>
+                    <form id="loginForm">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" id="loginUsername" placeholder="Username" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <a href="#" class="text-decoration-none">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">Register</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Registration Modal -->
+<div class="modal fade" id="registerModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-person-plus-fill"></i> Register</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" id="registerError" style="display: none;"></div>
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label for="registerName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="registerName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="registerUsername" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="registerConfirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100"><i class="bi bi-person-plus"></i> Register</button>
+                </form>
+                <div class="text-center mt-3">
+                    <p>Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

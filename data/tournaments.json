@@ -1,0 +1,71 @@
+{
+  "tournaments": [
+    {
+      "id": 1,
+      "title": "Rocket League Championship",
+      "description": "Join the best teams in a high-speed soccer showdown.",
+      "date": "2025-06-15",
+      "prize": "$10,000",
+      "registeredTeams": 24,
+      "maxTeams": 32,
+      "image": "tournament1.jpg",
+      "icon": "bi-rocket-takeoff"
+    },
+    {
+      "id": 2,
+      "title": "League of Legends Battle",
+      "description": "Prove your skills in the ultimate LoL competition.",
+      "date": "2025-07-22",
+      "prize": "$15,000",
+      "registeredTeams": 16,
+      "maxTeams": 16,
+      "image": "tournament2.jpg",
+      "icon": "bi-lightning-charge"
+    },
+    {
+      "id": 3,
+      "title": "Valorant Tournament",
+      "description": "Compete in the tactical shooter with the best teams.",
+      "date": "2025-08-10",
+      "prize": "$12,000",
+      "registeredTeams": 18,
+      "maxTeams": 24,
+      "image": "tournament3.jpg",
+      "icon": "bi-bullseye"
+    },
+    {
+      "id": 4,
+      "title": "CS:GO Championship",
+      "description": "The ultimate test of skill and strategy in Counter-Strike.",
+      "date": "2025-09-05",
+      "prize": "$20,000",
+      "registeredTeams": 12,
+      "maxTeams": 16,
+      "image": "tournament4.jpg",
+      "icon": "bi-bullseye"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "name": "Ahtisham Dilawar",
+      "rating": 5,
+      "comment": "I really like the platform. It is easy to use and has a great interface.",
+      "date": "2025-03-15"
+    },
+    {
+      "id": 2,
+      "name": "Hassan Rashid",
+      "rating": 5,
+      "comment": "The tournaments are well organized and the prize pools are impressive.",
+      "date": "2025-03-10"
+    },
+    {
+      "id": 3,
+      "name": "Hamza Akhtar",
+      "rating": 4,
+      "comment": "Lovely website but could use some improvements in the matchmaking system.",
+      "date": "2025-02-28"
+    }
+  ]
+}
